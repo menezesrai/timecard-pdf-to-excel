@@ -2,11 +2,17 @@
 
 I built this application to reduce the time spent reviewing timecard PDFs. A single file could contain many employees, but only part of those pages needed attention. Reading the entire document and reorganising the results by hand made the same task longer every month.
 
-The application reads the PDF, keeps the records with relevant time entries and creates an Excel workbook organised by department. The result is still meant to be reviewed, but the repetitive sorting is already done.
+The application reads the expected report, keeps the records with relevant time entries and creates an Excel workbook organised by department. The result is still meant to be reviewed, but the repetitive sorting is already done.
+
+## Supported PDF format
+
+This is not a general-purpose PDF converter. It was written for one specific, text-based timecard report layout. The PDF must contain one employee per page and use the Portuguese labels and summary columns expected by the extractor, including `NOME`, `DEPARTAMENTO`, `ADMISSÃO`, `DATA`, `ENTRADA`, `TOTAIS`, `EX100%`, `EXTRA`, `BCRED.`, `BDEB.` and `NOT TOTAL`.
+
+Scanned PDFs and reports produced with a different table structure will not be read reliably without adapting `pdf_extractor.py` first.
 
 ## What it does
 
-- reads multi-page PDFs with `pdfplumber`;
+- reads multi-page PDFs that follow the expected timecard layout with `pdfplumber`;
 - extracts employee, department and hour totals;
 - skips pages without relevant entries;
 - creates an `.xlsx` file with one sheet per department;
